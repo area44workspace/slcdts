@@ -1,12 +1,7 @@
 {
-  "name": "astro-multiverse",
-  "version": "25.03.14",
+  "name": "@area44/astro-multiverse",
+  "version": "25.03.15",
   "private": true,
-  "license": "CCA-3.0",
-  "author": {
-    "name": "AREA44",
-    "url": "https://github.com/AREA44/astro-multiverse"
-  },
   "scripts": {
     "build": "astro build",
     "dev": "astro dev",

@@ -1,12 +1,7 @@
 import { defineConfig } from "astro/config";
 import { FontaineTransform } from "fontaine";
 
-const VERCEL_PREVIEW_SITE =
-  process.env.VERCEL_ENV !== "production" &&
-  process.env.VERCEL_URL &&
-  `https://${process.env.VERCEL_URL}`;
-
-const site = VERCEL_PREVIEW_SITE || "https://torn4dom4n.github.io";
+const site = "https://slcdts.netlify.app";
 
 // https://astro.build/config
 export default defineConfig({
