@@ -3,27 +3,28 @@ import type { ImageMetadata } from "astro";
 import { Image, getImage } from "astro:assets";
 
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*");
-const imagePaths = Object.keys(images).filter((imagePath) => {
-  return imagePath.startsWith(`/src/assets/`);
-});
+
+// Preload images
+const imageEntries = await Promise.all(
+  Object.entries(images).map(async ([imagePath, resolver]) => {
+    const image = await resolver();
+    const optimizedImage = await getImage({
+      src: image.default,
+      width: 1200,
+    });
+    return { image, optimizedImage };
+  }),
+);
 ---
 
 <div id="main">
   {
-    imagePaths.map(async (imagePath) => {
-      const image = images[imagePath]()
-      const optimizedImage = await getImage({
-        src: image,
-        width: 1200,
-      })
-
-      return (
-        <article class="thumb">
-          <a class="image" href={optimizedImage.src}>
-            <Image src={image} height="750" alt="Astro Multiverse" />
-          </a>
-        </article>
-      )
-    })
+    imageEntries.map(({ image, optimizedImage }) => (
+      <article class="thumb">
+        <a class="image" href={optimizedImage.src}>
+          <Image src={image.default} height="750" alt="Astro Multiverse" />
+        </a>
+      </article>
+    ))
   }
 </div>
