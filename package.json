@@ -16,7 +16,8 @@
   },
   "devDependencies": {
     "@area44/biome-config": "^0.2.0",
-    "@biomejs/biome": "^1.9.4"
+    "@biomejs/biome": "^1.9.4",
+    "uncss": "^0.17.3"
   },
   "packageManager": "pnpm@10.6.5"
 }
