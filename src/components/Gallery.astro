@@ -1,30 +1,54 @@
 ---
 import type { ImageMetadata } from "astro";
-import { Image, getImage } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*");
+// Load full-size images from gallery
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/gallery/*",
+);
 
-// Preload images
+// Load thumbnails from thumb
+const thumbnails = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/thumb/*",
+);
+
+// Preload images & thumbnails
 const imageEntries = await Promise.all(
-  Object.values(images).map(async (resolver) => {
+  Object.entries(images).map(async ([path, resolver]) => {
     const image = await resolver();
-    const optimizedImage = await getImage({
-      src: image.default,
-      width: 1200,
-    });
-    return { image, optimizedImage };
+
+    // Extract filename (e.g., "image1.jpg")
+    const fileName = path.split("/").pop();
+
+    // Find matching thumbnail
+    const thumbPath = Object.keys(thumbnails).find((key) =>
+      key.endsWith(fileName),
+    );
+    const thumbResolver = thumbPath ? thumbnails[thumbPath] : null;
+    const thumbnail = thumbResolver ? await thumbResolver() : null;
+
+    // Optimize full image
+    const optimizedImage = await getImage({ src: image.default, width: 1200 });
+
+    // Optimize thumbnail
+    const optimizedThumbnail = thumbnail
+      ? await getImage({ src: thumbnail.default, width: 600 }) // Thumbnail optimized to 300px width
+      : optimizedImage; // Fallback to full image
+
+    return { optimizedImage, optimizedThumbnail };
   }),
 );
 ---
 
 <div id="main">
   {
-    imageEntries.map(({ image, optimizedImage }) => (
+    imageEntries.map(({ optimizedImage, optimizedThumbnail }) => (
       <article class="thumb">
         <a class="image" href={optimizedImage.src}>
           <Image
-            src={image.default}
-            height="750"
+            src={optimizedThumbnail.src}
+            width="300"
+            height="450"
             alt="Sàng lọc chẩn đoán trước sinh"
           />
         </a>
