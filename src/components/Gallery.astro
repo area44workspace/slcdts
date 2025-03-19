@@ -6,7 +6,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*");
 
 // Preload images
 const imageEntries = await Promise.all(
-  Object.entries(images).map(async ([imagePath, resolver]) => {
+  Object.values(images).map(async (resolver) => {
     const image = await resolver();
     const optimizedImage = await getImage({
       src: image.default,
