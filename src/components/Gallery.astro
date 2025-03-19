@@ -22,7 +22,11 @@ const imageEntries = await Promise.all(
     imageEntries.map(({ image, optimizedImage }) => (
       <article class="thumb">
         <a class="image" href={optimizedImage.src}>
-          <Image src={image.default} height="750" alt="Astro Multiverse" />
+          <Image
+            src={image.default}
+            height="750"
+            alt="Sàng lọc chẩn đoán trước sinh"
+          />
         </a>
       </article>
     ))
