@@ -1,11 +1,10 @@
 ---
 import BaseHead from "@/components/BaseHead.astro";
-import Header from "@/components/Header.astro";
 import Gallery from "@/components/Gallery.astro";
 import ExternalScripts from "@/components/ExternalScripts.astro";
 
-let title = "Sàng Lọc Chẩn Đoán Trước Sinh";
-let description = "Sàng Lọc Chẩn Đoán Trước Sinh - 2025";
+const title = "Sàng Lọc Chẩn Đoán Trước Sinh";
+const description = "Sàng Lọc Chẩn Đoán Trước Sinh - 2025";
 ---
 
 <!doctype html>
@@ -19,7 +18,6 @@ let description = "Sàng Lọc Chẩn Đoán Trước Sinh - 2025";
 
   <body class="is-preload">
     <div id="wrapper">
-      <Header title={title} />
       <Gallery />
     </div>
     <ExternalScripts />
