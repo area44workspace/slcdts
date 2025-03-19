@@ -9,7 +9,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
 // Load thumbnails from thumb
 const thumbnails = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/thumb/*",
+  "/src/assets/thumbs/*",
 );
 
 // Preload images & thumbnails
@@ -17,8 +17,7 @@ const imageEntries = await Promise.all(
   Object.entries(images).map(async ([path, resolver]) => {
     const image = await resolver();
 
-    // Extract filename (e.g., "image1.jpg")
-    const fileName = path.split("/").pop();
+    const fileName = path.split("/").pop() ?? "";
 
     // Find matching thumbnail
     const thumbPath = Object.keys(thumbnails).find((key) =>
@@ -30,10 +29,10 @@ const imageEntries = await Promise.all(
     // Optimize full image
     const optimizedImage = await getImage({ src: image.default, width: 1200 });
 
-    // Optimize thumbnail
-    const optimizedThumbnail = thumbnail
-      ? await getImage({ src: thumbnail.default, width: 600 }) // Thumbnail optimized to 300px width
-      : optimizedImage; // Fallback to full image
+    // Optimize thumbnail only if it exists
+    const optimizedThumbnail = thumbnail?.default
+      ? await getImage({ src: thumbnail.default, width: 600 })
+      : optimizedImage;
 
     return { optimizedImage, optimizedThumbnail };
   }),
@@ -47,8 +46,8 @@ const imageEntries = await Promise.all(
         <a class="image" href={optimizedImage.src}>
           <Image
             src={optimizedThumbnail.src}
-            width="300"
-            height="450"
+            width="600"
+            height="900"
             alt="Sàng lọc chẩn đoán trước sinh"
           />
         </a>
