@@ -10,13 +10,14 @@
     "format": "biome format --write ."
   },
   "dependencies": {
-    "astro": "^5.5.3",
+    "astro": "^5.5.4",
     "fontaine": "^0.5.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@area44/biome-config": "^0.2.0",
-    "@biomejs/biome": "^1.9.4"
+    "@biomejs/biome": "^1.9.4",
+    "uncss": "^0.17.3"
   },
   "packageManager": "pnpm@10.6.5"
 }
