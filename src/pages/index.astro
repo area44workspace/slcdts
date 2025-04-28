@@ -5,8 +5,8 @@ import ExternalScripts from "@/components/ExternalScripts.astro";
 const title = "Sàng Lọc Chẩn Đoán Trước Sinh";
 const description = "Sàng Lọc Chẩn Đoán Trước Sinh - 2025";
 
+import { Image, getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
-import { getImage, Image } from "astro:assets";
 
 // Load full-size images from gallery
 const images = import.meta.glob<{ default: ImageMetadata }>(
