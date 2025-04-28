@@ -1,6 +1,5 @@
 ---
 import BaseHead from "@/components/BaseHead.astro";
-import ExternalScripts from "@/components/ExternalScripts.astro";
 
 const title = "Sàng Lọc Chẩn Đoán Trước Sinh";
 const description = "Sàng Lọc Chẩn Đoán Trước Sinh - 2025";
@@ -72,7 +71,10 @@ const imageEntries = await Promise.all(
       }
     </div>
   </div>
-  <ExternalScripts />
+  <script is:inline src="/scripts/jquery.min.js"></script>
+  <script is:inline src="/scripts/jquery.poptrox.min.js"></script>
+  <script is:inline src="/scripts/browser.min.js"></script>
+  <script is:inline src="/scripts/breakpoints.min.js"></script>
 </body>
 
 <script is:inline>
