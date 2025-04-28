@@ -74,6 +74,7 @@ const imageEntries = await Promise.all(
   <script is:inline src="/scripts/jquery.min.js"></script>
   <script is:inline src="/scripts/jquery.poptrox.min.js"></script>
   <script is:inline src="/scripts/browser.min.js"></script>
+  <script is:inline src="/scripts/breakpoints.min.js"></script>
 </body>
 
 <script is:inline>
@@ -81,6 +82,15 @@ const imageEntries = await Promise.all(
     var $window = $(window),
       $body = $("body"),
       $wrapper = $("#wrapper");
+
+    // Breakpoints.
+    breakpoints({
+      xlarge: ["1281px", "1680px"],
+      large: ["981px", "1280px"],
+      medium: ["737px", "980px"],
+      small: ["481px", "736px"],
+      xsmall: [null, "480px"],
+    });
 
     // Transitions supported?
     if (browser.canUse("transition")) {
@@ -242,6 +252,15 @@ const imageEntries = await Promise.all(
       usePopupLoader: true,
       usePopupNav: true,
       windowMargin: 50,
+    });
+
+    // Hack: Set margins to 0 when 'xsmall' activates.
+    breakpoints.on("<=xsmall", function () {
+      $main[0]._poptrox.windowMargin = 0;
+    });
+
+    breakpoints.on(">xsmall", function () {
+      $main[0]._poptrox.windowMargin = 50;
     });
   })(jQuery);
 </script>
