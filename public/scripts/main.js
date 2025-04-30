@@ -1,13 +1,7 @@
-/*
-	Multiverse by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
-(function ($) {
-  var $window = $(window),
-    $body = $("body"),
-    $wrapper = $("#wrapper");
+(($) => {
+  const $window = $(window);
+  const $body = $("body");
+  const $wrapper = $("#wrapper");
 
   // Breakpoints.
   breakpoints({
@@ -21,21 +15,21 @@
   // Transitions supported?
   if (browser.canUse("transition")) {
     // Play initial animations on page load.
-    $window.on("load", function () {
-      window.setTimeout(function () {
+    $window.on("load", () => {
+      window.setTimeout(() => {
         $body.removeClass("is-preload");
       }, 100);
     });
 
     // Prevent transitions/animations on resize.
-    var resizeTimeout;
+    let resizeTimeout;
 
-    $window.on("resize", function () {
+    $window.on("resize", () => {
       window.clearTimeout(resizeTimeout);
 
       $body.addClass("is-resizing");
 
-      resizeTimeout = window.setTimeout(function () {
+      resizeTimeout = window.setTimeout(() => {
         $body.removeClass("is-resizing");
       }, 100);
     });
@@ -45,28 +39,28 @@
   $window.scrollTop(0);
 
   // Panels.
-  var $panels = $(".panel");
+  const $panels = $(".panel");
 
   $panels.each(function () {
-    var $this = $(this),
-      $toggles = $('[href="#' + $this.attr("id") + '"]'),
-      $closer = $('<div class="closer" />').appendTo($this);
+    const $this = $(this);
+    const $toggles = $(`[href="#${$this.attr("id")}"]`);
+    const $closer = $('<div class="closer" />').appendTo($this);
 
     // Closer.
-    $closer.on("click", function (event) {
+    $closer.on("click", (event) => {
       $this.trigger("---hide");
     });
 
     // Events.
     $this
-      .on("click", function (event) {
+      .on("click", (event) => {
         event.stopPropagation();
       })
-      .on("---toggle", function () {
+      .on("---toggle", () => {
         if ($this.hasClass("active")) $this.triggerHandler("---hide");
         else $this.triggerHandler("---show");
       })
-      .on("---show", function () {
+      .on("---show", () => {
         // Hide other content.
         if ($body.hasClass("content-active")) $panels.trigger("---hide");
 
@@ -77,7 +71,7 @@
         // Activate body.
         $body.addClass("content-active");
       })
-      .on("---hide", function () {
+      .on("---hide", () => {
         // Deactivate content, toggles.
         $this.removeClass("active");
         $toggles.removeClass("active");
@@ -90,7 +84,7 @@
     $toggles
       .removeAttr("href")
       .css("cursor", "pointer")
-      .on("click", function (event) {
+      .on("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
 
@@ -99,7 +93,7 @@
   });
 
   // Global events.
-  $body.on("click", function (event) {
+  $body.on("click", (event) => {
     if ($body.hasClass("content-active")) {
       event.preventDefault();
       event.stopPropagation();
@@ -108,8 +102,8 @@
     }
   });
 
-  $window.on("keyup", function (event) {
-    if (event.keyCode == 27 && $body.hasClass("content-active")) {
+  $window.on("keyup", (event) => {
+    if (event.keyCode === 27 && $body.hasClass("content-active")) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -118,27 +112,27 @@
   });
 
   // Main.
-  var $main = $("#main");
+  const $main = $("#main");
 
   // Thumbs.
   $main.children(".thumb").each(function () {
-    var $this = $(this),
-      $image = $this.find(".image"),
-      $image_img = $image.children("img"),
-      x;
+    const $this = $(this);
+    const $image = $this.find(".image");
+    const $image_img = $image.children("img");
 
     // No image? Bail.
-    if ($image.length == 0) return;
+    if ($image.length === 0) return;
 
     // Image.
     // This sets the background of the "image" <span> to the image pointed to by its child
     // <img> (which is then hidden). Gives us way more flexibility.
 
     // Set background.
-    $image.css("background-image", "url(" + $image_img.attr("src") + ")");
+    $image.css("background-image", `url(${$image_img.attr("src")})`);
 
     // Set background position.
-    if ((x = $image_img.data("position"))) $image.css("background-position", x);
+    const x = $image_img.data("position");
+    if (x) $image.css("background-position", x);
 
     // Hide original img.
     $image_img.hide();
@@ -147,8 +141,8 @@
   // Poptrox.
   $main.poptrox({
     baseZIndex: 20000,
-    caption: function ($a) {
-      var s = "";
+    caption: ($a) => {
+      let s = "";
 
       $a.nextAll().each(function () {
         s += this.outerHTML;
@@ -157,10 +151,10 @@
       return s;
     },
     fadeSpeed: 300,
-    onPopupClose: function () {
+    onPopupClose: () => {
       $body.removeClass("modal-active");
     },
-    onPopupOpen: function () {
+    onPopupOpen: () => {
       $body.addClass("modal-active");
     },
     overlayOpacity: 0,
@@ -180,11 +174,11 @@
   });
 
   // Hack: Set margins to 0 when 'xsmall' activates.
-  breakpoints.on("<=xsmall", function () {
+  breakpoints.on("<=xsmall", () => {
     $main[0]._poptrox.windowMargin = 0;
   });
 
-  breakpoints.on(">xsmall", function () {
+  breakpoints.on(">xsmall", () => {
     $main[0]._poptrox.windowMargin = 50;
   });
 })(jQuery);
