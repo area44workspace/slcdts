@@ -7,16 +7,18 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev",
+    "check": "biome check --write .",
+    "lint": "biome lint --write .",
     "format": "biome format --write ."
   },
   "dependencies": {
-    "astro": "^5.5.3",
-    "fontaine": "^0.5.0",
-    "sharp": "^0.33.5"
+    "astro": "^5.7.10",
+    "sharp": "^0.34.1"
   },
   "devDependencies": {
-    "@area44/biome-config": "^0.2.0",
-    "@biomejs/biome": "^1.9.4"
+    "@area44/biome-config": "^0.4.1",
+    "@biomejs/biome": "^1.9.4",
+    "uncss": "^0.17.3"
   },
-  "packageManager": "pnpm@10.6.5"
+  "packageManager": "pnpm@10.10.0"
 }
