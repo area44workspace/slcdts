@@ -398,25 +398,13 @@ a:hover {
   }
 }
 
-#wrapper {
-  -moz-transition: -moz-filter .5s ease, -webkit-filter .5s ease, -ms-filter .5s
-    ease, -moz-filter .5s ease;
-  -webkit-transition: -moz-filter .5s ease, -webkit-filter .5s ease, -ms-filter
-    .5s ease, -webkit-filter .5s ease;
-  -ms-transition: -moz-filter .5s ease, -webkit-filter .5s ease, -ms-filter .5s
-    ease, -ms-filter .5s ease;
-  transition: -moz-filter .5s ease, -webkit-filter .5s ease, -ms-filter .5s ease,
-    filter .5s ease;
-  position: relative;
-}
-
 #wrapper:after {
   pointer-events: none;
-  -moz-transition: opacity .5s ease, visibility .5s;
-  -webkit-transition: opacity .5s ease, visibility .5s;
-  -ms-transition: opacity .5s ease, visibility .5s;
-  transition: opacity .5s ease, visibility .5s;
-  background: #24262980;
+  -moz-transition: opacity 0.5s ease, visibility 0.5s;
+  -webkit-transition: opacity 0.5s ease, visibility 0.5s;
+  -ms-transition: opacity 0.5s ease, visibility 0.5s;
+  transition: opacity 0.5s ease, visibility 0.5s;
+  background: rgba(36, 38, 41, 0.5);
   content: "";
   display: block;
   height: 100%;
@@ -427,6 +415,20 @@ a:hover {
   visibility: hidden;
   width: 100%;
   z-index: 1;
+}
+
+body.modal-active #wrapper {
+  -moz-filter: blur(8px);
+  -webkit-filter: blur(8px);
+  -ms-filter: blur(8px);
+  filter: blur(8px);
+}
+
+body.modal-active #wrapper:after {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  z-index: 10003;
 }
 
 #wrapper:before {
