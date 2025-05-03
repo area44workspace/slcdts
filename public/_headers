@@ -1,9 +1,6 @@
 /*
   Cache-Control: public, max-age=3600, immutable
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Referrer-Policy: no-referrer-when-downgrade
-  X-Robots-Tag: index, follow
-  X-Frame-Options: SAMEORIGIN
 
 /_astro/*
   Cache-Control: public, max-age=86400, immutable
