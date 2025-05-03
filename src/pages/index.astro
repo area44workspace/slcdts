@@ -34,12 +34,17 @@ const imageEntries = await Promise.all(
     // Optimize full image
     const optimizedImage = await getImage({ src: image.default, width: 1200 });
 
-    // Optimize thumbnail only if it exists
+    // Optimize thumbnail
     const optimizedThumbnail = thumbnail?.default
       ? await getImage({ src: thumbnail.default, width: 600 })
       : optimizedImage;
 
-    return { optimizedImage, optimizedThumbnail };
+    return {
+      optimizedImage,
+      optimizedThumbnail,
+      originalWidth: image.default.width,
+      originalHeight: image.default.height,
+    };
   }),
 );
 ---
@@ -57,18 +62,26 @@ const imageEntries = await Promise.all(
     <div id="wrapper">
       <div id="main">
         {
-          imageEntries.map(({ optimizedImage, optimizedThumbnail }) => (
-            <article class="thumb">
-              <a class="image" href={optimizedImage.src}>
-                <Image
-                  src={optimizedThumbnail.src}
-                  width="600"
-                  height="900"
-                  alt="Sàng lọc chẩn đoán trước sinh"
-                />
-              </a>
-            </article>
-          ))
+          imageEntries.map(
+            ({
+              optimizedImage,
+              optimizedThumbnail,
+              originalWidth,
+              originalHeight,
+            }) => (
+              <article class="thumb">
+                <a class="image" href={optimizedImage.src}>
+                  <Image
+                    src={optimizedThumbnail.src}
+                    width={originalWidth}
+                    height={originalHeight}
+                    alt="Sàng lọc chẩn đoán trước sinh"
+                    loading="lazy"
+                  />
+                </a>
+              </article>
+            ),
+          )
         }
       </div>
     </div>
