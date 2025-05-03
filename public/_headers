@@ -1,19 +1,9 @@
-# Global headers (applied to all routes)
 /*
   Cache-Control: public, max-age=3600, immutable
-  X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'
   Referrer-Policy: no-referrer-when-downgrade
-  Feature-Policy: vibrate 'none'; geolocation 'none'; camera 'none'
-  Permissions-Policy: geolocation=(self)
-
-# Home page headers (set specific cache headers, or security headers)
-/*
   X-Robots-Tag: index, follow
   X-Frame-Options: SAMEORIGIN
 
-# Headers for specific assets (images, CSS, JS)
-/assets/*
+/_astro/*
   Cache-Control: public, max-age=86400, immutable
