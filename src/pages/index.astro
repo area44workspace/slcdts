@@ -57,59 +57,46 @@ const imageEntries = await Promise.all(
     };
   }),
 );
-
-// JSON-LD structured data for ImageGallery
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "ImageGallery",
-  name: title,
-  description: description,
-  image: imageEntries.map((entry) => ({
-    "@type": "ImageObject",
-    url: entry.imageUrl,
-    name: entry.altText,
-    width: entry.originalWidth,
-    height: entry.originalHeight,
-  })),
-};
 ---
 
-<BaseHead title={title} description={description} author="AREA44" og="og-image.jpg" />
+<html lang="vi">
+  <BaseHead
+    title={title}
+    description={description}
+    author="AREA44"
+    og="og-image.jpg"
+  />
 
-<script type="application/ld+json">
-  {JSON.stringify(structuredData)}
-</script>
-
-<main id="wrapper">
-  <section id="main">
-    {
-      imageEntries.map(
-        ({ optimizedImage, optimizedThumbnail, originalWidth, originalHeight, altText }, i) => (
-          <article class="thumb">
-            <a
-              class="image"
-              href={optimizedImage.src}
-              title={`Xem ảnh gốc: ${altText}`}
-              aria-label={`Xem ảnh lớn hơn: ${altText}`}
-            >
-              <Image
-                src={optimizedThumbnail.src}
-                width={originalWidth}
-                height={originalHeight}
-                alt={altText}
-                loading="lazy"
-              />
-            </a>
-          </article>
+  <main id="wrapper">
+    <section id="main">
+      {
+        imageEntries.map(
+          ({
+            optimizedImage,
+            optimizedThumbnail,
+            originalWidth,
+            originalHeight,
+            altText,
+          }) => (
+            <article class="thumb">
+              <a class="image" href={optimizedImage.src} title={`${altText}`}>
+                <Image
+                  src={optimizedThumbnail.src}
+                  width={originalWidth}
+                  height={originalHeight}
+                  alt={altText}
+                  loading="lazy"
+                />
+              </a>
+            </article>
+          ),
         )
-      )
-    }
-  </section>
-</main>
-
-<!-- Scripts for gallery functionality -->
-<script is:inline src="/scripts/jquery.min.js"></script>
-<script is:inline src="/scripts/jquery.poptrox.min.js"></script>
-<script is:inline src="/scripts/browser.min.js"></script>
-<script is:inline src="/scripts/breakpoints.min.js"></script>
-<script is:inline src="/scripts/main.js"></script>
+      }
+    </section>
+  </main>
+  <script is:inline src="/scripts/jquery.min.js"></script>
+  <script is:inline src="/scripts/jquery.poptrox.min.js"></script>
+  <script is:inline src="/scripts/browser.min.js"></script>
+  <script is:inline src="/scripts/breakpoints.min.js"></script>
+  <script is:inline src="/scripts/main.js"></script>
+</html>
