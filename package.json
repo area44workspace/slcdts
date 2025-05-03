@@ -1,6 +1,6 @@
 {
   "name": "@area44/astro-multiverse",
-  "version": "25.05.01",
+  "version": "25.05.02",
   "private": true,
   "scripts": {
     "build": "astro build",
