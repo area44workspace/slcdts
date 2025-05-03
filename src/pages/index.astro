@@ -1,6 +1,6 @@
 ---
-import BaseHead from "@/components/BaseHead.astro";
 import { Image, getImage } from "astro:assets";
+import BaseHead from "@/components/BaseHead.astro";
 import type { ImageMetadata } from "astro";
 
 const title = "Sàng Lọc Chẩn Đoán Trước Sinh";
@@ -8,12 +8,12 @@ const description = "Sàng Lọc Chẩn Đoán Trước Sinh - 2025";
 
 // Load full-size images
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/gallery/*"
+  "/src/assets/gallery/*",
 );
 
 // Load thumbnails
 const thumbnails = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/thumbs/*"
+  "/src/assets/thumbs/*",
 );
 
 // Prepare entries with metadata
@@ -24,7 +24,7 @@ const imageEntries = await Promise.all(
 
     // Match thumbnail
     const thumbPath = Object.keys(thumbnails).find((key) =>
-      key.endsWith(fileName)
+      key.endsWith(fileName),
     );
     const thumbResolver = thumbPath ? thumbnails[thumbPath] : null;
     const thumbnail = thumbResolver ? await thumbResolver() : null;
@@ -42,10 +42,10 @@ const imageEntries = await Promise.all(
     const originalHeight = thumbnail?.default.height ?? image.default.height;
 
     // Create alt text from filename
-    const baseName = fileName.replace(/\.[^/.]+$/, '');
+    const baseName = fileName.replace(/\.[^/.]+$/, "");
     const altText = baseName
-      .replace(/[-_]/g, ' ')
-      .replace(/\b\w/g, l => l.toUpperCase());
+      .replace(/[-_]/g, " ")
+      .replace(/\b\w/g, (l) => l.toUpperCase());
 
     return {
       optimizedImage,
@@ -55,22 +55,22 @@ const imageEntries = await Promise.all(
       altText,
       imageUrl: optimizedImage.src,
     };
-  })
+  }),
 );
 
 // JSON-LD structured data for ImageGallery
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ImageGallery",
-  "name": title,
-  "description": description,
-  "image": imageEntries.map(entry => ({
+  name: title,
+  description: description,
+  image: imageEntries.map((entry) => ({
     "@type": "ImageObject",
-    "url": entry.imageUrl,
-    "name": entry.altText,
-    "width": entry.originalWidth,
-    "height": entry.originalHeight
-  }))
+    url: entry.imageUrl,
+    name: entry.altText,
+    width: entry.originalWidth,
+    height: entry.originalHeight,
+  })),
 };
 ---
 
