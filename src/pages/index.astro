@@ -44,37 +44,37 @@ const imageEntries = await Promise.all(
 );
 ---
 
-<head lang="vi">
-  <BaseHead
-    title={title}
-    description={description}
-    author="AREA44"
-    og="og-image.jpg"
-  />
-</head>
-<body class="is-preload">
-  <div id="wrapper">
-    <div id="main">
-      {
-        imageEntries.map(({ optimizedImage, optimizedThumbnail }) => (
-          <article class="thumb">
-            <a class="image" href={optimizedImage.src}>
-              <Image
-                src={optimizedThumbnail.src}
-                width="600"
-                height="900"
-                alt="Sàng lọc chẩn đoán trước sinh"
-              />
-            </a>
-          </article>
-        ))
-      }
+<html lang="vi">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      author="AREA44"
+      og="og-image.jpg"
+    />
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+      <div id="main">
+        {
+          imageEntries.map(({ optimizedImage, optimizedThumbnail }) => (
+            <article class="thumb">
+              <a class="image" href={optimizedImage.src}>
+                <Image
+                  src={optimizedThumbnail.src}
+                  width="600"
+                  height="900"
+                  alt="Sàng lọc chẩn đoán trước sinh"
+                />
+              </a>
+            </article>
+          ))
+        }
+      </div>
     </div>
-  </div>
-</body>
-
-<script is:inline src="/scripts/jquery.min.js"></script>
-<script is:inline src="/scripts/jquery.poptrox.min.js"></script>
-<script is:inline src="/scripts/browser.min.js"></script>
-<script is:inline src="/scripts/breakpoints.min.js"></script>
-<script is:inline src="/scripts/main.js"></script>
+  </body><script is:inline src="/scripts/jquery.min.js"></script>
+  <script is:inline src="/scripts/jquery.poptrox.min.js"></script>
+  <script is:inline src="/scripts/browser.min.js"></script>
+  <script is:inline src="/scripts/breakpoints.min.js"></script>
+  <script is:inline src="/scripts/main.js"></script>
+</html>
