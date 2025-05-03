@@ -1,7 +1,6 @@
 (($) => {
   const $window = $(window);
   const $body = $("body");
-  const $wrapper = $("#wrapper");
 
   // Breakpoints.
   breakpoints({
@@ -20,96 +19,7 @@
         $body.removeClass("is-preload");
       }, 100);
     });
-
-    // Prevent transitions/animations on resize.
-    let resizeTimeout;
-
-    $window.on("resize", () => {
-      window.clearTimeout(resizeTimeout);
-
-      $body.addClass("is-resizing");
-
-      resizeTimeout = window.setTimeout(() => {
-        $body.removeClass("is-resizing");
-      }, 100);
-    });
   }
-
-  // Scroll back to top.
-  $window.scrollTop(0);
-
-  // Panels.
-  const $panels = $(".panel");
-
-  $panels.each(function () {
-    const $this = $(this);
-    const $toggles = $(`[href="#${$this.attr("id")}"]`);
-    const $closer = $('<div class="closer" />').appendTo($this);
-
-    // Closer.
-    $closer.on("click", (event) => {
-      $this.trigger("---hide");
-    });
-
-    // Events.
-    $this
-      .on("click", (event) => {
-        event.stopPropagation();
-      })
-      .on("---toggle", () => {
-        if ($this.hasClass("active")) $this.triggerHandler("---hide");
-        else $this.triggerHandler("---show");
-      })
-      .on("---show", () => {
-        // Hide other content.
-        if ($body.hasClass("content-active")) $panels.trigger("---hide");
-
-        // Activate content, toggles.
-        $this.addClass("active");
-        $toggles.addClass("active");
-
-        // Activate body.
-        $body.addClass("content-active");
-      })
-      .on("---hide", () => {
-        // Deactivate content, toggles.
-        $this.removeClass("active");
-        $toggles.removeClass("active");
-
-        // Deactivate body.
-        $body.removeClass("content-active");
-      });
-
-    // Toggles.
-    $toggles
-      .removeAttr("href")
-      .css("cursor", "pointer")
-      .on("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        $this.trigger("---toggle");
-      });
-  });
-
-  // Global events.
-  $body.on("click", (event) => {
-    if ($body.hasClass("content-active")) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      $panels.trigger("---hide");
-    }
-  });
-
-  $window.on("keyup", (event) => {
-    if (event.keyCode === 27 && $body.hasClass("content-active")) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      $panels.trigger("---hide");
-    }
-  });
 
   // Main.
   const $main = $("#main");
@@ -141,15 +51,6 @@
   // Poptrox.
   $main.poptrox({
     baseZIndex: 20000,
-    caption: ($a) => {
-      let s = "";
-
-      $a.nextAll().each(function () {
-        s += this.outerHTML;
-      });
-
-      return s;
-    },
     fadeSpeed: 300,
     onPopupClose: () => {
       $body.removeClass("modal-active");
@@ -164,7 +65,6 @@
     popupSpeed: 300,
     popupWidth: 150,
     selector: ".thumb > a.image",
-    usePopupCaption: true,
     usePopupCloser: true,
     usePopupDefaultStyling: false,
     usePopupForceClose: true,
