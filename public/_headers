@@ -10,11 +10,10 @@
   Permissions-Policy: geolocation=(self)
 
 # Home page headers (set specific cache headers, or security headers)
-/
+/*
   X-Robots-Tag: index, follow
   X-Frame-Options: SAMEORIGIN
 
 # Headers for specific assets (images, CSS, JS)
-# /assets/*
 /assets/*
   Cache-Control: public, max-age=86400, immutable
